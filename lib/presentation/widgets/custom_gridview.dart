@@ -3,13 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/character/character_cubit.dart';
 import 'package:movie_app/presentation/widgets/custom_card.dart';
 
-class CustomGridView extends StatelessWidget {
+class CustomGridView extends StatefulWidget {
   const CustomGridView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<CustomGridView> createState() => _CustomGridViewState();
+}
+
+
+class _CustomGridViewState extends State<CustomGridView> {
+  @override
+  void initState() {
     context.read<CharacterCubit>().fetchCharacters();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
+      // tell the cubit ready i need to use here 
      child: BlocBuilder<CharacterCubit, CharacterState>(
         builder: (context, state) {
             if(state is CharacterLoading){
